@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 import Profile from "./components/Perfil";
 import Login from "./components/Login";
 import Register from "./components/Register";
-
+import Catalogo from "./components/Catalogo"; 
 function App() {
   return (
     <>
@@ -25,6 +25,7 @@ function App() {
         <Route path="/perfil" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/catalogo" element={<Catalogo />} />
       </Routes>
       
       <Footer />
