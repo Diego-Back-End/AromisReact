@@ -5,14 +5,14 @@ function Catalogo() {
   const [filter, setFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
 
-  // 🔹 Filtrado por categoría y búsqueda
+  //  Filtrado por categoría y búsqueda
   const filteredProducts = products.filter((product) => {
     const matchesFilter = filter === "all" || product.category === filter;
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
-  // 🔹 Estilos (idénticos a los anteriores)
+  // Estilos 
   const styles = `
     .catalogo-page {
       min-height: 100vh;
@@ -162,7 +162,7 @@ function Catalogo() {
     }
   `;
 
-  // 🔹 Inyectar estilos dinámicamente
+  // estilos dinámicamente
   useEffect(() => {
     const styleSheet = document.createElement("style");
     styleSheet.innerText = styles;
