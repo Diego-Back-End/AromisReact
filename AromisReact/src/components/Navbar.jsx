@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 
 function Navbar() {
-  // ESTILOS PARA NAVBAR - COPIA Y PEGA ESTO
+  // ESTILOS PARA NAVBAR
   const styles = `
     .navbar-custom {
       background-color: #f8f9fa !important;

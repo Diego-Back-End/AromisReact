@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { products } from "../data/products";
 
 function Catalogo() {
   const [filter, setFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const products = [
-    { id: 1, name: "Jpg le male elixir", price: "97.990", img: "/img/perfume1.jpg", category: "amaderado" },
-    { id: 2, name: "Stronger with you intensely", price: "90.990", img: "/img/perfume2.jpg", category: "floral" },
-    { id: 3, name: "9AM Dive", price: "32.990", img: "/img/perfume3.webp", category: "citrico" },
-    { id: 4, name: "Liquid Brun", price: "40.990", img: "/img/perfume4.webp", category: "citrico" },
-    { id: 5, name: "Rayhaan Elixir", price: "40.990", img: "/img/perfume5.webp", category: "amaderado" },
-    { id: 6, name: "Sceptre Malachite", price: "40.990", img: "/img/perfume6.webp", category: "amaderado" },
-    { id: 7, name: "Bond No.9 Chez Bond EDP", price: "40.990", img: "/img/perfume7.webp", category: "floral" },
-    { id: 8, name: "Montale Aoud Queen Roses EDP", price: "40.990", img: "/img/perfume8.webp", category: "citrico" },
-    { id: 9, name: "Eclaire Lattafa EDP", price: "40.990", img: "/img/perfume9.webp", category: "amaderado" },
-    { id: 10, name: "Yara Candy", price: "40.990", img: "/img/perfume10.webp", category: "citrico" },
-  ];
+  // 🔹 Filtrado por categoría y búsqueda
+  const filteredProducts = products.filter((product) => {
+    const matchesFilter = filter === "all" || product.category === filter;
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
 
-  // ESTILOS PARA CATÁLOGO 
+  // 🔹 Estilos (idénticos a los anteriores)
   const styles = `
     .catalogo-page {
       min-height: 100vh;
       background-color: #f5f7fb;
+      font-family: 'Poppins', sans-serif;
     }
 
     .catalogo-navbar {
@@ -34,56 +29,18 @@ function Catalogo() {
 
     .catalogo-navbar .container {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
       gap: 1rem;
-    }
-
-    .catalogo-logo-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .catalogo-navbar-logo {
-      height: 40px;
-      object-fit: contain;
-    }
-
-    .catalogo-logo {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #333;
-      margin: 0;
-    }
-
-    .catalogo-navbar nav ul {
-      display: flex;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      gap: 2rem;
-    }
-
-    .catalogo-navbar nav a {
-      text-decoration: none;
-      color: #555;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    .catalogo-navbar nav a:hover,
-    .catalogo-navbar nav a.active {
-      color: #2289c0;
+      flex-wrap: wrap;
     }
 
     .catalogo-search-bar {
       padding: 0.5rem 1rem;
       border: 2px solid #e0e0e0;
       border-radius: 25px;
-      width: 250px;
-      font-size: 0.9rem;
+      width: 300px;
+      font-size: 1rem;
       transition: border-color 0.3s ease;
     }
 
@@ -132,7 +89,7 @@ function Catalogo() {
 
     .catalogo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 2rem;
       padding: 2rem 0;
     }
@@ -152,7 +109,7 @@ function Catalogo() {
 
     .catalogo-card img {
       width: 100%;
-      height: 200px;
+      height: 220px;
       object-fit: cover;
       border-radius: 10px;
       margin-bottom: 1rem;
@@ -184,7 +141,9 @@ function Catalogo() {
       margin-top: 1rem;
     }
 
- 
+    .catalogo-btn:hover {
+      background: linear-gradient(135deg, #b07a3b, #d4a373);
+    }
 
     @media (max-width: 768px) {
       .catalogo-navbar .container {
@@ -192,13 +151,9 @@ function Catalogo() {
         text-align: center;
       }
 
-      .catalogo-navbar nav ul {
-        gap: 1rem;
-      }
-
       .catalogo-search-bar {
         width: 100%;
-        max-width: 300px;
+        max-width: 350px;
       }
 
       .catalogo-grid {
@@ -207,34 +162,22 @@ function Catalogo() {
     }
   `;
 
-  // Filtrar productos
-  const filteredProducts = products.filter(product => {
-    const matchesFilter = filter === "all" || product.category === filter;
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesFilter && matchesSearch;
-  });
-
-  // Inyectar estilos
+  // 🔹 Inyectar estilos dinámicamente
   useEffect(() => {
     const styleSheet = document.createElement("style");
     styleSheet.innerText = styles;
     document.head.appendChild(styleSheet);
-    
-    return () => {
-      document.head.removeChild(styleSheet);
-    };
+    return () => document.head.removeChild(styleSheet);
   }, []);
 
   return (
     <div className="catalogo-page">
-      {/* Header/Navbar */}
+      {/* Barra de búsqueda */}
       <header className="catalogo-navbar">
         <div className="container">
-          
-          
-          <input 
-            type="text" 
-            placeholder="Buscar perfumes..." 
+          <input
+            type="text"
+            placeholder="Buscar perfumes..."
             className="catalogo-search-bar"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -248,25 +191,25 @@ function Catalogo() {
 
         {/* Botones de filtro */}
         <div className="catalogo-filtros">
-          <button 
+          <button
             className={`catalogo-filter-btn ${filter === "all" ? "active" : ""}`}
             onClick={() => setFilter("all")}
           >
             Todos
           </button>
-          <button 
+          <button
             className={`catalogo-filter-btn ${filter === "floral" ? "active" : ""}`}
             onClick={() => setFilter("floral")}
           >
             Floral
           </button>
-          <button 
+          <button
             className={`catalogo-filter-btn ${filter === "citrico" ? "active" : ""}`}
             onClick={() => setFilter("citrico")}
           >
             Cítrico
           </button>
-          <button 
+          <button
             className={`catalogo-filter-btn ${filter === "amaderado" ? "active" : ""}`}
             onClick={() => setFilter("amaderado")}
           >
@@ -274,10 +217,10 @@ function Catalogo() {
           </button>
         </div>
 
-        {/* Catálogo de productos */}
+        {/* Grid de productos */}
         <section className="catalogo-grid">
           {filteredProducts.map((product) => (
-            <div key={product.id} className="catalogo-card" data-category={product.category}>
+            <div key={product.id} className="catalogo-card">
               <img src={product.img} alt={product.name} />
               <h3>{product.name}</h3>
               <p>${product.price}</p>

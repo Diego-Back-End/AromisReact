@@ -10,7 +10,7 @@ const products = [
   { id: 9, name: "Eclaire Lattafa EDP", price: "30.490", img: "/img/perfume9.webp" },
   { id: 10, name: "Yara Candy", price: "30.990", img: "/img/perfume10.webp" },
 ];
-
+  
 function ProductList() {
   return (
     <section className="py-5">
