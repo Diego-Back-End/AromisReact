@@ -1,15 +1,26 @@
-// src/components/Register.jsx
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [email, setEmail] = useState("");
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí NO hay validaciones, solo capturas los datos.
-    console.log({ email, user, password });
+    const result = register(email, user, password);
+
+    if (!result.success) {
+      setError(result.message);
+    } else {
+      alert(result.message);
+      navigate("/login");
+    }
   };
 
   return (
@@ -18,10 +29,10 @@ function Register() {
         <h3 className="card-title text-center mb-3">Registro</h3>
 
         <form onSubmit={handleSubmit}>
+          {error && <div className="alert alert-danger">{error}</div>}
+
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Correo electrónico
-            </label>
+            <label htmlFor="email" className="form-label">Correo electrónico</label>
             <input
               type="email"
               className="form-control"
@@ -34,9 +45,7 @@ function Register() {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="user" className="form-label">
-              Nombre Usuario
-            </label>
+            <label htmlFor="user" className="form-label">Nombre Usuario</label>
             <input
               type="text"
               className="form-control"
@@ -48,9 +57,7 @@ function Register() {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Contraseña
-            </label>
+            <label htmlFor="password" className="form-label">Contraseña</label>
             <input
               type="password"
               className="form-control"
@@ -68,8 +75,7 @@ function Register() {
         </form>
 
         <p className="mt-3 text-center">
-          ¿Ya tienes una cuenta?{" "}
-          <a href="/login">Inicia sesión aquí</a>
+          ¿Ya tienes una cuenta? <a href="/login">Inicia sesión aquí</a>
         </p>
       </div>
     </div>
