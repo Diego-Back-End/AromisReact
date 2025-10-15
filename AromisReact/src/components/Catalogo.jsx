@@ -1,18 +1,19 @@
+// src/components/Catalogo.jsx
 import React, { useState, useEffect } from "react";
 import { products } from "../data/products";
 
-function Catalogo() {
+function Catalogo({ addToCart }) {
   const [filter, setFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
 
-  //  Filtrado por categoría y búsqueda
+  // Filtrar productos
   const filteredProducts = products.filter((product) => {
     const matchesFilter = filter === "all" || product.category === filter;
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
-  // Estilos 
+  // Estilos
   const styles = `
     .catalogo-page {
       min-height: 100vh;
@@ -162,7 +163,6 @@ function Catalogo() {
     }
   `;
 
-  // estilos dinámicamente
   useEffect(() => {
     const styleSheet = document.createElement("style");
     styleSheet.innerText = styles;
@@ -172,7 +172,6 @@ function Catalogo() {
 
   return (
     <div className="catalogo-page">
-      {/* Barra de búsqueda */}
       <header className="catalogo-navbar">
         <div className="container">
           <input
@@ -185,11 +184,9 @@ function Catalogo() {
         </div>
       </header>
 
-      {/* Contenido principal */}
       <main className="catalogo-main">
         <h2>Catálogo de Perfumes</h2>
 
-        {/* Botones de filtro */}
         <div className="catalogo-filtros">
           <button
             className={`catalogo-filter-btn ${filter === "all" ? "active" : ""}`}
@@ -217,14 +214,18 @@ function Catalogo() {
           </button>
         </div>
 
-        {/* Grid de productos */}
         <section className="catalogo-grid">
           {filteredProducts.map((product) => (
             <div key={product.id} className="catalogo-card">
               <img src={product.img} alt={product.name} />
               <h3>{product.name}</h3>
               <p>${product.price}</p>
-              <button className="catalogo-btn">Agregar al carrito</button>
+              <button
+                className="catalogo-btn"
+                onClick={() => addToCart(product)}
+              >
+                Agregar al carrito
+              </button>
             </div>
           ))}
         </section>
