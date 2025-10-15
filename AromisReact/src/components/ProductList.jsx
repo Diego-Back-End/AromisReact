@@ -1,30 +1,80 @@
-const products = [
-  { id: 1, name: "Jpg le male elixir", price: "97.990", img: "/img/perfume1.jpg" },
-  { id: 2, name: "Stronger with you intensely", price: "90.990", img: "/img/perfume2.jpg" },
-  { id: 3, name: "9AM Dive", price: "32.990", img: "/img/perfume3.webp" },
-  { id: 4, name: "Liquid Brun", price: "40.990", img: "/img/perfume4.webp" },
-  { id: 5, name: "Rayhaan Elixir", price: "30.990", img: "/img/perfume5.webp" },
-  { id: 6, name: "Sceptre Malachite", price: "30.990", img: "/img/perfume6.webp" },
-  { id: 7, name: "Bond No.9 Chez Bond EDP", price: "212.990", img: "/img/perfume7.webp" },
-  { id: 8, name: "Montale Aoud Queen Roses EDP", price: "77.990", img: "/img/perfume8.webp" },
-  { id: 9, name: "Eclaire Lattafa EDP", price: "30.490", img: "/img/perfume9.webp" },
-  { id: 10, name: "Yara Candy", price: "30.990", img: "/img/perfume10.webp" },
-];
-  
-function ProductList() {
+// src/components/ProductList.jsx
+import React from "react";
+import { products } from "../data/products";
+
+function ProductList({ addToCart }) {
   return (
-    <section className="py-5">
+    <section className="py-5 bg-light">
+      <style>
+        {`
+        .card {
+          border-radius: 16px;
+          overflow: hidden;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+
+        .card-img-top {
+          height: 200px;
+          object-fit: cover;
+        }
+
+        .card-body {
+          padding: 1rem;
+        }
+
+        .card-title {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #333;
+        }
+
+        .card-text {
+          font-size: 1rem;
+          color: #007bff;
+        }
+
+        .btn-success {
+          background-color: #28a745;
+          border: none;
+          transition: background-color 0.2s;
+        }
+
+        .btn-success:hover {
+          background-color: #218838;
+        }
+
+        @media (max-width: 768px) {
+          .card-img-top {
+            height: 160px;
+          }
+          .card-title {
+            font-size: 1rem;
+          }
+        }
+        `}
+      </style>
+
       <div className="container">
-        <h2 className="mb-4">Perfumes Destacados</h2>
-        <div className="row row-cols-1 row-cols-md-3 g-4">
+        <h2 className="mb-4 text-center text-dark">Perfumes Destacados</h2>
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
           {products.map((p) => (
             <div className="col" key={p.id}>
-              <div className="card h-100">
+              <div className="card h-100 text-center shadow-sm">
                 <img src={p.img} className="card-img-top" alt={p.name} />
                 <div className="card-body">
                   <h5 className="card-title">{p.name}</h5>
-                  <p className="card-text">${p.price}</p>
-                  <button className="btn btn-success w-100">Agregar al carrito</button>
+                  <p className="card-text fw-bold">${p.price}</p>
+                  <button
+                    className="btn btn-success w-100"
+                    onClick={() => addToCart(p)}
+                  >
+                    Agregar al carrito
+                  </button>
                 </div>
               </div>
             </div>
@@ -34,4 +84,5 @@ function ProductList() {
     </section>
   );
 }
+
 export default ProductList;
