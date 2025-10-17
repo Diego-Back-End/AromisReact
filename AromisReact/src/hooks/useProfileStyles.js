@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+//  Estilos para la página de perfil
 const styles = `
   .profile-header-custom {
     background: linear-gradient(135deg, #2fafc3, #8e6cdf) !important;
@@ -35,11 +36,14 @@ const styles = `
   }
 `;
 
+//  Hook que inyecta estos estilos en la página
 export const useProfileStyles = () => {
   useEffect(() => {
     const styleSheet = document.createElement("style");
     styleSheet.innerText = styles;
     document.head.appendChild(styleSheet);
+
+    // Limpiar los estilos al desmontar el componente
     return () => document.head.removeChild(styleSheet);
   }, []);
 };
