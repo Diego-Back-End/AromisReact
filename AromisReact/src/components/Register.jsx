@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 
+// Componente de registro de usuarios
 function Register() {
-  const [email, setEmail] = useState("");
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // 👈 nuevo estado
+  // Estados para guardar los valores de los campos
+  const [email, setEmail] = useState("");       // Guarda el correo
+  const [user, setUser] = useState("");         // Guarda el nombre de usuario
+  const [password, setPassword] = useState(""); // Guarda la contraseña
+  const [error, setError] = useState("");       // Guarda mensaje de error
 
+  // Función que se ejecuta al enviar el formulario
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    // Simular fallo de registro
-    throw new Error("Fallo en registro");
-  } catch (err) {
-    setError("Error en registro"); // 👈 este texto debe coincidir con el test
-  }
+    e.preventDefault(); // Evita que se recargue la página
+    try {
+      // Aquí normalmente iría la lógica para registrar al usuario
+      // Por ahora simulamos un error de registro
+      throw new Error("Fallo en registro");
+    } catch (err) {
+      setError("Error en registro"); // Muestra mensaje de error
+    }
   };
-
 
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
@@ -23,6 +26,7 @@ function Register() {
         <h3 className="card-title text-center mb-3">Registro</h3>
 
         <form onSubmit={handleSubmit}>
+          {/* Campo correo */}
           <div className="mb-3">
             <label className="form-label" htmlFor="email">Correo electrónico</label>
             <input
@@ -36,6 +40,7 @@ function Register() {
             />
           </div>
 
+          {/* Campo nombre de usuario */}
           <div className="mb-3">
             <label className="form-label" htmlFor="user">Nombre Usuario</label>
             <input
@@ -48,6 +53,7 @@ function Register() {
             />
           </div>
 
+          {/* Campo contraseña */}
           <div className="mb-3">
             <label className="form-label" htmlFor="password">Contraseña</label>
             <input
@@ -61,16 +67,18 @@ function Register() {
             />
           </div>
 
+          {/* Botón de registro */}
           <button type="submit" className="btn btn-primary w-100">Registrar</button>
         </form>
 
-        {/* 👇 Agregar el mensaje de error visible si falla */}
+        {/* Mensaje de error si hay */}
         {error && (
           <p className="text-danger text-center mt-3" role="alert">
             {error}
           </p>
         )}
 
+        {/* Link para ir al login */}
         <p className="mt-3 text-center">
           ¿Ya tienes una cuenta? <a href="/login">Inicia sesión aquí</a>
         </p>

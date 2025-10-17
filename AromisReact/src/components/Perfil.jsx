@@ -1,14 +1,16 @@
 import React from "react";
-import { useProfileStyles } from "../hooks/useProfileStyles";
+import { useProfileStyles } from "../hooks/useProfileStyles"; // Hook que agrega estilos para el perfil
 
 const Profile = () => {
-  useProfileStyles(); // inyecta los estilos globales
+  useProfileStyles(); // Aplica los estilos globales al cargar el componente
 
   return (
     <>
+      {/* CABECERA DEL PERFIL */}
       <div className="profile-header-custom py-3 mb-4">
         <div className="container">
           <div className="row align-items-center">
+
             {/* Imagen de perfil */}
             <div className="col-md-2 text-center">
               <img
@@ -18,11 +20,9 @@ const Profile = () => {
               />
             </div>
 
-            {/* Datos principales */}
+            {/* Datos principales: nombre, correo y ubicación */}
             <div className="col-md-7">
-              <h1 className="h2 text-white" id="profileName">
-                Nombre Usuario
-              </h1>
+              <h1 className="h2 text-white" id="profileName">Nombre Usuario</h1>
               <p className="mb-1 text-white">
                 <i className="fas fa-envelope me-2"></i>
                 <span id="profileEmail">correo@ejemplo.com</span>
@@ -33,7 +33,7 @@ const Profile = () => {
               </p>
             </div>
 
-            {/* Botones */}
+            {/* Botones para editar perfil y configuraciones */}
             <div className="col-md-3 text-md-end">
               <button className="btn btn-light me-2">
                 <i className="fas fa-edit me-1"></i>Editar
@@ -42,6 +42,7 @@ const Profile = () => {
                 <i className="fas fa-cog"></i>
               </button>
             </div>
+
           </div>
         </div>
       </div>
@@ -49,7 +50,8 @@ const Profile = () => {
       {/* CONTENIDO PRINCIPAL */}
       <div className="container mb-5">
         <div className="row">
-          {/* Columna izquierda */}
+
+          {/* COLUMNA IZQUIERDA: Información personal */}
           <div className="col-md-4">
             <div className="stats-card-custom p-4 mb-4">
               <h5 className="mb-4">Información Personal</h5>
@@ -71,16 +73,15 @@ const Profile = () => {
 
               <div>
                 <p className="mb-1 text-muted">Preferencias</p>
-                <span className="badge bg-light text-dark me-1">
-                  Fragancias diseñador
-                </span>
+                <span className="badge bg-light text-dark me-1">Fragancias diseñador</span>
               </div>
             </div>
           </div>
 
-          {/* Columna derecha */}
+          {/* COLUMNA DERECHA: Pedidos y actividad reciente */}
           <div className="col-md-8">
-            {/* Navegación */}
+
+            {/* Navegación dentro del perfil */}
             <ul className="nav nav-pills mb-4">
               <li className="nav-item">
                 <a className="nav-link active" href="#">
@@ -89,18 +90,17 @@ const Profile = () => {
               </li>
             </ul>
 
-            {/* Actividad reciente */}
+            {/* Actividad reciente del usuario */}
             <div className="stats-card-custom p-4 mb-4">
               <h5 className="mb-4">Actividad Reciente</h5>
 
+              {/* Cada item muestra lo que hizo el usuario y cuándo */}
               <div className="activity-item-custom mb-3">
                 <div className="d-flex justify-content-between">
                   <h6>Pedido completado</h6>
                   <small className="text-muted">Hace 2 días</small>
                 </div>
-                <p className="mb-0">
-                  Pedido #AR-78912 entregado satisfactoriamente.
-                </p>
+                <p className="mb-0">Pedido #AR-78912 entregado satisfactoriamente.</p>
               </div>
 
               <div className="activity-item-custom mb-3">
@@ -108,9 +108,7 @@ const Profile = () => {
                   <h6>Producto valorado</h6>
                   <small className="text-muted">Hace 4 días</small>
                 </div>
-                <p className="mb-0">
-                  Has valorado el "Set de Velas Aromáticas" con 5 estrellas.
-                </p>
+                <p className="mb-0">Has valorado el "Set de Velas Aromáticas" con 5 estrellas.</p>
               </div>
 
               <div className="activity-item-custom mb-3">
@@ -129,6 +127,7 @@ const Profile = () => {
                 <p className="mb-0">Has realizado un nuevo pedido (#AR-78435).</p>
               </div>
             </div>
+
           </div>
         </div>
       </div>

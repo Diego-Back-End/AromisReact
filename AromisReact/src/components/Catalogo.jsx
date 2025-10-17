@@ -1,19 +1,21 @@
-// src/components/Catalogo.jsx
+// Este componente muestra el catálogo con todos los perfumes
 import React, { useState, useEffect } from "react";
 import { products } from "../data/products";
 
 function Catalogo({ addToCart }) {
+  // Estado para guardar el filtro (ej: floral, cítrico, etc.)
   const [filter, setFilter] = useState("all");
+  // Estado para guardar lo que se escribe en la barra de búsqueda
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Filtrar productos
+  // Acá se filtran los productos según lo que el usuario busca o el tipo elegido
   const filteredProducts = products.filter((product) => {
     const matchesFilter = filter === "all" || product.category === filter;
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
-  // Estilos
+  // Estilos que se aplican solo en este componente
   const styles = `
     .catalogo-page {
       min-height: 100vh;
@@ -163,15 +165,18 @@ function Catalogo({ addToCart }) {
     }
   `;
 
+  // Esto agrega los estilos cuando el componente se muestra
   useEffect(() => {
     const styleSheet = document.createElement("style");
     styleSheet.innerText = styles;
     document.head.appendChild(styleSheet);
+    // Esto limpia los estilos cuando salimos del componente
     return () => document.head.removeChild(styleSheet);
   }, []);
 
   return (
     <div className="catalogo-page">
+      {/* Barra superior con el buscador */}
       <header className="catalogo-navbar">
         <div className="container">
           <input
@@ -179,14 +184,16 @@ function Catalogo({ addToCart }) {
             placeholder="Buscar perfumes..."
             className="catalogo-search-bar"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)} // actualiza lo que se busca
           />
         </div>
       </header>
 
+      {/* Contenido principal */}
       <main className="catalogo-main">
         <h2>Catálogo de Perfumes</h2>
 
+        {/* Botones de filtro */}
         <div className="catalogo-filtros">
           <button
             className={`catalogo-filter-btn ${filter === "all" ? "active" : ""}`}
@@ -214,12 +221,14 @@ function Catalogo({ addToCart }) {
           </button>
         </div>
 
+        {/* Acá se muestran los productos filtrados */}
         <section className="catalogo-grid">
           {filteredProducts.map((product) => (
             <div key={product.id} className="catalogo-card">
               <img src={product.img} alt={product.name} />
               <h3>{product.name}</h3>
               <p>${product.price}</p>
+              {/* Botón para agregar al carrito */}
               <button
                 className="catalogo-btn"
                 onClick={() => addToCart(product)}

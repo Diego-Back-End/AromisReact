@@ -1,10 +1,11 @@
-// src/components/ProductList.jsx
 import React from "react";
 import { products } from "../data/products";
 
+// Este componente muestra los productos destacados en tarjetas
 function ProductList({ addToCart }) {
   return (
     <section className="py-5 bg-light">
+      {/* Estilos aplicados solo dentro de este componente */}
       <style>
         {`
         .card {
@@ -39,13 +40,13 @@ function ProductList({ addToCart }) {
         }
 
         .btn-success {
-          background-color: #28a745;
+          background: linear-gradient(135deg, #b07a3b, #d4a373);
           border: none;
           transition: background-color 0.2s;
         }
 
         .btn-success:hover {
-          background-color: #218838;
+          background: linear-gradient(135deg, #b07a3b, #d4a373);
         }
 
         @media (max-width: 768px) {
@@ -60,15 +61,23 @@ function ProductList({ addToCart }) {
       </style>
 
       <div className="container">
+        {/* Título */}
         <h2 className="mb-4 text-center text-dark">Perfumes Destacados</h2>
+
+        {/* Grid de tarjetas de productos */}
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
           {products.map((p) => (
             <div className="col" key={p.id}>
               <div className="card h-100 text-center shadow-sm">
+                {/* Imagen del producto */}
                 <img src={p.img} className="card-img-top" alt={p.name} />
+                
+                {/* Información del producto */}
                 <div className="card-body">
                   <h5 className="card-title">{p.name}</h5>
                   <p className="card-text fw-bold">${p.price}</p>
+                  
+                  {/* Botón para agregar al carrito */}
                   <button
                     className="btn btn-success w-100"
                     onClick={() => addToCart(p)}
