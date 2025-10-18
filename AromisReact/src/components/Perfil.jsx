@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useProfileStyles } from "../hooks/useProfileStyles";
 
 const Profile = () => {
   useProfileStyles(); // inyecta los estilos globales
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) setUser(storedUser);
+  }, []);
+
+  if (!user) {
+    return (
+      <div className="text-center mt-5">
+        <h2>No hay usuario conectado</h2>
+        <p>Por favor inicia sesión o regístrate para ver tu perfil.</p>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -21,11 +37,11 @@ const Profile = () => {
             {/* Datos principales */}
             <div className="col-md-7">
               <h1 className="h2 text-white" id="profileName">
-                Nombre Usuario
+                {user.username || "Usuario"}
               </h1>
               <p className="mb-1 text-white">
                 <i className="fas fa-envelope me-2"></i>
-                <span id="profileEmail">correo@ejemplo.com</span>
+                <span id="profileEmail">{user.email || "correo@ejemplo.com"}</span>
               </p>
               <p className="mb-1 text-white">
                 <i className="fas fa-map-marker-alt me-2"></i>
@@ -56,7 +72,7 @@ const Profile = () => {
 
               <div className="mb-3">
                 <p className="mb-1 text-muted">Nombre completo</p>
-                <p className="mb-0" id="infoName">Nombre Usuario</p>
+                <p className="mb-0" id="infoName">{user.username}</p>
               </div>
 
               <div className="mb-3">
